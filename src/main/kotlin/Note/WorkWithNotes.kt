@@ -17,7 +17,8 @@ object WorkWithNotes {
     var commetId = 0
     var noteArray = mutableListOf<Note>()
     var commentArray = mutableListOf<Comment>()
-    var deletedCommetArray = mutableListOf<Comment>()
+    var deletedCommentsArray = mutableListOf<Comment>()
+
     class GenericPair<A,B>(var first:A, var second:B)
     fun add(note: Note): Note {
         val addedNote = note.copy(id =++noteId)
@@ -42,11 +43,24 @@ object WorkWithNotes {
         for (comment in commentArray)
             println(comment)
     }
-    fun deleteComment() {
-        TODO("Not yet implemented")
+    fun deleteComment(count: Int){
+        for (comment in commentArray){
+                if (count == comment.cid) {
+                    deletedCommentsArray.add(comment)
+
+                }
+        }
+        commentArray.removeAll { it.cid ==count }
     }
-    fun edit() {
-        TODO("Not yet implemented")
+    fun edit(count: Int, newNote: Note) : Boolean{
+        for ((index, note) in noteArray.withIndex()) {
+            if (note.id == count) {
+                val newN = note.copy(id = note.id, title = newNote.title, text = newNote.text, privacy = newNote.privacy, comment_privacy = newNote.comment_privacy)
+                noteArray.set(index, newN)
+                return true
+            }
+        }
+        return false
     }
 
     fun editComment() {
