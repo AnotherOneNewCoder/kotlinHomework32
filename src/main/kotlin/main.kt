@@ -11,6 +11,7 @@ fun main() {
     val firstComment = Comment(111, 111, "first comment")
     val secondComment = Comment(111, 111, "second comment")
     val thirdComment = Comment(111, 111, "third comment")
+    val editComment = Comment(111, 111, "edit comment")
 
     WorkWithNotes.add(firstNote)
     WorkWithNotes.add(secondNote)
@@ -20,9 +21,10 @@ fun main() {
     WorkWithNotes.createComment(1,firstComment)
     WorkWithNotes.createComment(2,secondComment)
     WorkWithNotes.createComment(3,thirdComment)
+    WorkWithNotes.editComment(3, editComment)
     WorkWithNotes.printComments()
-    WorkWithNotes.deleteComment(1)
-    WorkWithNotes.printComments()
-    WorkWithNotes.edit(3,editedNote)
-    WorkWithNotes.printNotes()
+//    WorkWithNotes.deleteComment(1)
+//    WorkWithNotes.printComments()
+//    WorkWithNotes.edit(3,editedNote)
+//    WorkWithNotes.printNotes()
 }
