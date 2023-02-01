@@ -16,15 +16,20 @@ fun main() {
     WorkWithNotes.add(firstNote)
     WorkWithNotes.add(secondNote)
     WorkWithNotes.add(thirdNote)
-    WorkWithNotes.printNotes()
+    println(WorkWithNotes.get())
+    println(WorkWithNotes.getById(3))
+    println(WorkWithNotes.getById(44))
 
-    WorkWithNotes.createComment(1,firstComment)
-    WorkWithNotes.createComment(2,secondComment)
+    WorkWithNotes.createComment(3,firstComment)
+    WorkWithNotes.createComment(3,secondComment)
     WorkWithNotes.createComment(3,thirdComment)
     WorkWithNotes.editComment(3, editComment)
     WorkWithNotes.printComments()
-//    WorkWithNotes.deleteComment(1)
-//    WorkWithNotes.printComments()
+    WorkWithNotes.deleteComment(1)
+    WorkWithNotes.printComments()
+    WorkWithNotes.restoreComment(1)
+    WorkWithNotes.printComments()
+
 //    WorkWithNotes.edit(3,editedNote)
-//    WorkWithNotes.printNotes()
+
 }

@@ -1,6 +1,8 @@
 package Note
 
 import Comment.Comment
+
+
 /*add - Создает новую заметку у текущего пользователя.
 createComment - Добавляет новый комментарий к заметке.
 delete - Удаляет заметку текущего пользователя.
@@ -25,13 +27,14 @@ object WorkWithNotes {
         noteArray.add(addedNote)
         return noteArray.last()
     }
-    fun printNotes(){
-        for (note in noteArray)
-            println(note)
-    }
-    fun createComment(count:Int,comment: Comment ): Boolean{
+    // Для проверки:
+//    fun printNotes(){
+//        for (note in noteArray)
+//            println(note)
+//    }
+    fun createComment(noteId:Int,comment: Comment ): Boolean{
         for (note in noteArray) {
-            if (count == note.id){
+            if (noteId == note.id){
                 val createComment = comment.copy(note_id =note.id, cid = ++commetId)
                 commentArray.add(createComment)
                 return true
@@ -39,22 +42,23 @@ object WorkWithNotes {
         }
         return false
     }
+    // Для проверки:
     fun printComments(){
         for (comment in commentArray)
             println(comment)
     }
-    fun deleteComment(count: Int){
+    fun deleteComment(commentId: Int){
         for (comment in commentArray){
-                if (count == comment.cid) {
+                if (commentId == comment.cid) {
                     deletedCommentsArray.add(comment)
 
                 }
         }
-        commentArray.removeAll { it.cid ==count }
+        commentArray.removeAll { it.cid ==commentId }
     }
-    fun edit(count: Int, newNote: Note) : Boolean{
+    fun edit(noteId: Int, newNote: Note) : Boolean{
         for ((index, note) in noteArray.withIndex()) {
-            if (note.id == count) {
+            if (note.id == noteId) {
                 val newN = note.copy(id = note.id, title = newNote.title, text = newNote.text, privacy = newNote.privacy, comment_privacy = newNote.comment_privacy)
                 noteArray.set(index, newN)
                 return true
@@ -63,9 +67,10 @@ object WorkWithNotes {
         return false
     }
 
-    fun editComment(count: Int, comment: Comment): Boolean {
+
+    fun editComment(commentId: Int, comment: Comment): Boolean {
         for ((index, comm) in commentArray.withIndex()) {
-            if (comm.note_id == count) {
+            if (comm.cid == commentId) {
                 val editComment = comment.copy(note_id = comm.note_id, cid = comm.cid)
                 commentArray.set(index,editComment)
                 return true
@@ -74,25 +79,53 @@ object WorkWithNotes {
         return false
     }
 
-    fun get() {
-        TODO("Not yet implemented")
+    fun get(): List<Note> {
+        return noteArray
     }
 
-    fun getById() {
-        TODO("Not yet implemented")
+    fun getById(noteId: Int): Note? {
+        for (note in noteArray){
+            if (note.id == noteId){
+                return note
+            }
+        }
+        return null
     }
 
-    fun getComments() {
-        TODO("Not yet implemented")
+    fun getComments(noteId: Int): List<Comment> {
+        val temList = mutableListOf<Comment>()
+        for (comm in commentArray) {
+            if (comm.note_id == noteId) {
+                temList.add(comm)
+            }
+
+        }
+        return temList
     }
 
-    fun getFriendsNotes() {
-        TODO("Not yet implemented")
+    fun getFriendsNotes():List<Note> {
+        val tempFriendsNotesList = mutableListOf<Note>()
+        for (note in noteArray) {
+            if (note.privacy == 1) {
+                tempFriendsNotesList.add(note)
+            }
+        }
+        return tempFriendsNotesList
     }
 
-    fun restoreComment() {
-        TODO("Not yet implemented")
+    fun restoreComment(commentId: Int): Boolean {
+        var success:Boolean = false
+        for (comm in deletedCommentsArray) {
+            if (commentId == comm.cid) {
+                commentArray.add(comm)
+                success = true
+            }
+        }
+        if (success == true)
+            deletedCommentsArray.removeAll { it.cid ==commentId }
+        return success
     }
+
 
 }
 
