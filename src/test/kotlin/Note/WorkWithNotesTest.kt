@@ -85,7 +85,6 @@ class WorkWithNotesTest {
 
     @Test
     fun editCommentFail() {
-        val tempArray = WorkWithNotes.getComments(1).toString()
         val tempComment = Comment(11,3,"test2")
         val result = service.editComment(42,tempComment)
         assertFalse(result)
@@ -101,13 +100,13 @@ class WorkWithNotesTest {
 
     @Test
     fun getById() {
-        var result = service.getById(2)
+        val result = service.getById(2)
         val expected = Note(2,"Friend", "note for friends", 1, 1)
         assertEquals(expected,result)
     }
     @Test
     fun getByIdNull() {
-        var result = service.getById(4)
+        val result = service.getById(4)
         val expected = null
         assertEquals(expected,result)
     }
