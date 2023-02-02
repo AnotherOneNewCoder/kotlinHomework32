@@ -22,6 +22,7 @@ object WorkWithNotes {
     var deletedCommentsArray = mutableListOf<Comment>()
 
 
+
     fun add(note: Note): Note {
         val addedNote = note.copy(id =++noteId)
         noteArray.add(addedNote)
@@ -47,14 +48,26 @@ object WorkWithNotes {
         for (comment in commentArray)
             println(comment)
     }
-    fun deleteComment(commentId: Int){
+    fun delete(noteId: Int): Boolean {
+        var success = false
+        for (note in noteArray) {
+            if (note.id == noteId)
+                success = true
+        }
+        noteArray.removeAll { it.id == noteId }
+        commentArray.removeAll { it.note_id == noteId }
+        return success
+    }
+    fun deleteComment(commentId: Int): Boolean{
+        var success = false
         for (comment in commentArray){
                 if (commentId == comment.cid) {
                     deletedCommentsArray.add(comment)
-
+                    success = true
                 }
         }
         commentArray.removeAll { it.cid ==commentId }
+        return success
     }
     fun edit(noteId: Int, newNote: Note) : Boolean{
         for ((index, note) in noteArray.withIndex()) {

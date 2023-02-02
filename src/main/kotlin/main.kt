@@ -19,9 +19,11 @@ fun main() {
     println(WorkWithNotes.get())
     println(WorkWithNotes.getById(3))
     println(WorkWithNotes.getById(44))
+    WorkWithNotes.edit(3,editedNote)
 
-    WorkWithNotes.createComment(3,firstComment)
-    WorkWithNotes.createComment(3,secondComment)
+
+    WorkWithNotes.createComment(2,firstComment)
+    WorkWithNotes.createComment(2,secondComment)
     WorkWithNotes.createComment(3,thirdComment)
     WorkWithNotes.editComment(3, editComment)
     WorkWithNotes.printComments()
@@ -29,7 +31,9 @@ fun main() {
     WorkWithNotes.printComments()
     WorkWithNotes.restoreComment(1)
     WorkWithNotes.printComments()
-
-//    WorkWithNotes.edit(3,editedNote)
-
+    println(WorkWithNotes.get())
+    WorkWithNotes.delete(2)
+    println(WorkWithNotes.get())
+    WorkWithNotes.printComments()
+    println(WorkWithNotes.delete(111))
 }
